@@ -1,0 +1,7 @@
+--ui bdd
+--reporter spec
+--recursive
+--check-leaks
+--full-trace
+--timeout 3000
+--compilers js:babel-register

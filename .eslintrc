@@ -1,0 +1,58 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+
+  "parser": "babel-eslint",
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+  "plugins": [
+    "import"
+  ],
+
+  "settings": {
+    "import/extensions": [
+      ".js"
+    ],
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
+    }
+  },
+
+  "rules": {
+    "no-console": ["off"],
+    "new-cap": ["error"],
+    "func-names": ["off"],
+    "space-before-function-paren": ["error", "never"],
+    "no-confusing-arrow": ["off"],
+    "no-param-reassign": ["off"],
+    "no-return-assign": ["off"],
+    "no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
+    }],
+    "no-underscore-dangle": ["off"],
+    "no-use-before-define": ["off"],
+    "dot-notation": ["off"],
+    "eqeqeq": ["error", "allow-null"],
+    "import/no-unresolved": ["error", {
+      "commonjs": true
+    }],
+    "import/no-commonjs": ["error"],
+    "import/no-amd": ["error"],
+    "import/imports-first": ["error"],
+    "import/no-named-as-default": ["off"]
+  }
+}
