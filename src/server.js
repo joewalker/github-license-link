@@ -19,6 +19,8 @@ app.use(bodyParser.json());
 
 app.post('/github', (request, response, next) => {
   const event = request.get('X-GitHub-Event');
+  console.log(`Received ${event} from github.`);
+
   if (event === undefined || !(event in events)) {
     return next();
   }
@@ -42,6 +44,7 @@ export async function startServer(githubObj) {
   }
 
   server = app.listen(process.env.PORT);
+  console.log(`Server listening on port ${process.env.PORT}`);
   github = githubObj;
   server.on('close', () => {
     server = null;
@@ -55,5 +58,6 @@ export function stopServer() {
     }
 
     server.close(resolve);
+    console.log('Server stopped');
   });
 }
