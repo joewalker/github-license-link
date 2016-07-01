@@ -32,7 +32,7 @@ describe('Test with an unconfirmed user', () => {
     expect(prs).toEqual([1]);
 
     // Should have posted a comment
-    expect(mockGithub.pullRequests.createComment).toHaveBeenCalledWith({
+    expect(mockGithub.issues.createComment).toHaveBeenCalledWith({
       user: 'testowner1',
       repo: 'testrepo1',
       number: 1,
@@ -50,7 +50,7 @@ describe('Test with an unconfirmed user', () => {
     expect(prs).toEqual([1, 3]);
 
     // Should have posted a comment
-    expect(mockGithub.pullRequests.createComment).toHaveBeenCalledWith({
+    expect(mockGithub.issues.createComment).toHaveBeenCalledWith({
       user: 'testowner1',
       repo: 'testrepo1',
       number: 3,
@@ -79,7 +79,7 @@ describe('Test with an unconfirmed user', () => {
     expect(prs).toEqual([2]);
 
     // Should have posted a comment
-    expect(mockGithub.pullRequests.createComment).toHaveBeenCalledWith({
+    expect(mockGithub.issues.createComment).toHaveBeenCalledWith({
       user: 'testowner1',
       repo: 'testrepo2',
       number: 2,

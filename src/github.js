@@ -29,7 +29,7 @@ github.authenticate({
 
 // Expose only the methods we need but convert it to promise based
 export default {
-  pullRequests: {
-    createComment: thenify(github.pullRequests.createComment),
+  issues: {
+    createComment: thenify(github.issues.createComment),
   },
 };

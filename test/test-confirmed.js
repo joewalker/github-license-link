@@ -31,6 +31,6 @@ describe('Test with a confirmed user', () => {
     expect(prs).toEqual([]);
 
     // Shouldn't have posted a comment
-    expect(mockGithub.pullRequests.createComment).toNotHaveBeenCalled();
+    expect(mockGithub.issues.createComment).toNotHaveBeenCalled();
   });
 });

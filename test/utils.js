@@ -23,7 +23,7 @@ process.env.PORT = 64895;
 const hookshotdir = path.join(__dirname, 'fixtures', 'hookshots');
 
 export const mockGithub = {
-  pullRequests: {
+  issues: {
     createComment: createSpy().andReturn(Promise.resolve()),
   },
 };
@@ -36,7 +36,7 @@ export async function testSetup() {
 export async function testCleanup() {
   await stopServer();
   await resetDatabase();
-  mockGithub.pullRequests.createComment.reset();
+  mockGithub.issues.createComment.reset();
 }
 
 export async function sendHookShot(event, file) {

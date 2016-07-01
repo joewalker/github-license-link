@@ -30,9 +30,11 @@ export default {
       return;
     }
 
+    console.log(`Saw a new user ${user} open a pull request.`);
+
     // Otherwise comment and add the PR to the list for this repo
     const message = await getMessageForRepo(owner, repo, 'response', { user });
-    await github.pullRequests.createComment({
+    await github.issues.createComment({
       user: owner,
       repo,
       number: pr,
@@ -52,6 +54,8 @@ export default {
     const repo = payload.repository.name;
     const owner = payload.repository.owner.login;
     const pr = payload.issue.number;
+
+    console.log(`Saw comment on #${pr} by ${payload.comment.user.login}`);
 
     if (payload.comment.user.login !== user) {
       return;
