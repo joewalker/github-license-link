@@ -18,8 +18,7 @@ import { startServer, stopServer } from '../src/server';
 import { resetDatabase } from '../src/data';
 import events from '../src/events';
 
-const testPort = 64895;
-process.env.PORT = testPort + 1;
+process.env.PORT = 64895;
 
 const hookshotdir = path.join(__dirname, 'fixtures', 'hookshots');
 

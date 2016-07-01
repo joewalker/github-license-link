@@ -14,10 +14,10 @@ import expect from 'expect';
 import { testSetup, testCleanup, sendHookShot, mockGithub } from './utils';
 import { getPullRequestsForUser, hasUserUnderstood } from '../src/data';
 
-beforeEach(testSetup);
-afterEach(testCleanup);
-
 describe('Test with an unconfirmed user', () => {
+  beforeEach(testSetup);
+  afterEach(testCleanup);
+
   it('Creating a pull request triggers a comment', async function() {
     expect(await hasUserUnderstood('newuser1', 'testrepo1', 'testowner1')).toBe(false);
 
@@ -62,7 +62,7 @@ describe('Test with an unconfirmed user', () => {
     await sendHookShot('issue_comment', 'comment-create-pr-1.json');
 
     prs = await getPullRequestsForUser('newuser1', 'testrepo1', 'testowner1');
-    expect(prs).toEqual([1, 3]);
+    expect(prs).toEqual([]);
 
     expect(await hasUserUnderstood('newuser1', 'testrepo1', 'testowner1')).toBe(true);
   });

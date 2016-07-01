@@ -78,7 +78,13 @@ export const getPullRequestsForUser = withDB(async function(db, user, repo, owne
 export const setUserUnderstood = withDB(async function(db, user, repo, owner) {
   const collection = db.collection('users');
 
-  await collection.updateOne({ user, repo, owner }, { $set: { understood: true } });
+  await collection.updateOne(
+    { user, repo, owner },
+    {
+      $set: { understood: true, pr: [] },
+    },
+    { upsert: true }
+  );
 });
 
 export const resetDatabase = withDB(async function(db) {
