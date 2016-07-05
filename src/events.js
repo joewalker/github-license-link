@@ -13,6 +13,21 @@ specific language governing permissions and limitations under the License.
 import { hasUserUnderstood, addPullRequest, getMessageForRepo,
          getPullRequestsForUser, setUserUnderstood } from './data';
 
+async function shouldIgnoreUser(github, user, repo, owner) {
+  if (await hasUserUnderstood(user, repo, owner)) {
+    return true;
+  }
+
+  const orgs = await github.orgs.getForUser({ user });
+  for (const org of orgs) {
+    if (org.login === owner) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // Each property is an event sent through Github's webhook API
 export default {
   async pull_request(payload, github) {
@@ -25,7 +40,7 @@ export default {
     const owner = payload.repository.owner.login;
     const pr = payload.pull_request.number;
 
-    if (await hasUserUnderstood(user, repo, owner)) {
+    if (await shouldIgnoreUser(github, user, repo, owner)) {
       // If the user has already agreed then ignore this pull request
       return;
     }
@@ -45,7 +60,7 @@ export default {
   },
 
   // For comment purposes pull requests are treated like issues
-  async issue_comment(payload) {
+  async issue_comment(payload, github) {
     if (payload.action !== 'created') {
       return;
     }
@@ -61,7 +76,7 @@ export default {
       return;
     }
 
-    if (await hasUserUnderstood(user, repo, owner)) {
+    if (await shouldIgnoreUser(github, user, repo, owner)) {
       // If the user has already agreed then ignore this comment
       return;
     }

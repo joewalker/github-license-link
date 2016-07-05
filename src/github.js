@@ -32,4 +32,7 @@ export default {
   issues: {
     createComment: thenify(github.issues.createComment),
   },
+  orgs: {
+    getForUser: thenify(github.orgs.getForUser),
+  },
 };

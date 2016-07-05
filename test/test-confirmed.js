@@ -33,4 +33,18 @@ describe('Test with a confirmed user', () => {
     // Shouldn't have posted a comment
     expect(mockGithub.issues.createComment).toNotHaveBeenCalled();
   });
+
+  it('An organisation user shouldn\'t need confirmation', async function() {
+    expect(await hasUserUnderstood('orguser1', 'testrepo1', 'testorg1')).toBe(false);
+
+    // Send pull request notification
+    await sendHookShot('pull_request', 'unconfirmed-create-pr-4.json');
+
+    // Shouldn't have added the PR to the list of awaiting requests
+    const prs = await getPullRequestsForUser('orguser1', 'testrepo1', 'testorg1');
+    expect(prs).toEqual([]);
+
+    // Shouldn't have posted a comment
+    expect(mockGithub.issues.createComment).toNotHaveBeenCalled();
+  });
 });

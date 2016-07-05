@@ -22,9 +22,22 @@ process.env.PORT = 64895;
 
 const hookshotdir = path.join(__dirname, 'fixtures', 'hookshots');
 
+function getUserOrgs({ user }) {
+  if (user === 'orguser1') {
+    return Promise.resolve([{
+      login: 'testorg1',
+    }]);
+  }
+
+  return Promise.resolve([]);
+}
+
 export const mockGithub = {
   issues: {
     createComment: createSpy().andReturn(Promise.resolve()),
+  },
+  orgs: {
+    getForUser: createSpy().andCall(getUserOrgs),
   },
 };
 
