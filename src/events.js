@@ -14,6 +14,10 @@ import { hasUserUnderstood, addPullRequest, getMessageForRepo,
          getPullRequestsForUser, setUserUnderstood } from './data';
 
 async function shouldIgnoreUser(github, user, repo, owner) {
+  if (user === owner) {
+    return true;
+  }
+
   if (await hasUserUnderstood(user, repo, owner)) {
     return true;
   }
